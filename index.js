@@ -10,6 +10,9 @@ const groq = new Groq({
 
 app.use(express.json());
 
+app.get("/", (req, res) => res.redirect("/healthz"));
+app.get("/healthz", (req, res) => res.json({ status: "healthy", message: "Server is up and running" }));
+
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
@@ -41,5 +44,5 @@ app.post("/chat", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on {PORT}`);
+  console.log(`Server running on ${PORT}`);
 });
